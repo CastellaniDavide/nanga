@@ -13,30 +13,53 @@
  * Contact: contacts@castellanidavide.it
  *
  */
-
-// Includes
 #include <bits/stdc++.h>
+#define DEBUG
 using namespace std;
 
-// Variabiles
-int N;
+int N, max_value, max_alt, actual, tmp, last;
+vector <int> alt;
 
-// Main code
 int main()
 {
-  // Cncomment the following lines if you want to read/write from files
-  // freopen("input.txt", "r", stdin);
-  // freopen("output.txt", "w", stdout);
+    freopen("input.txt", "r", stdin);
+#ifndef DEBUG
+    freopen("output.txt", "w", stdout);
+#endif // DEBUG
 
-  // Input
-  cin >> N;
+    cin >> N;
+    actual = 5000;
+    alt.resize(N);
 
-  // Code
-  // ...
+    for (size_t i = 0; i < N; ++i)
+    {
+        cin >> tmp;
+        actual += tmp;
+        alt[i] = actual;
+    }
 
-  // Output
-  cout << N << endl;
+    sort(alt.begin(), alt.end());
 
-  // End
-  return 0;
+    max_value = INT_MIN;
+    tmp = 0;
+    last = -1;
+    for (size_t i = 0; i < N; ++i)
+    {
+        if (alt[i] == last)
+        {
+            tmp++;
+        }
+        else
+        {
+            if(tmp > max_value)
+            {
+                max_value = tmp;
+                max_alt = last;
+            }
+            last = alt[i];
+            tmp = 1;
+        }
+    }
+
+    cout << max_alt;
 }
